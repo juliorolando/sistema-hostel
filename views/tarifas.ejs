@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Tarifario en Dólares</title>
+</head>
+
+<body>
+    <!--  <div class="container mt-3">
+        <button class="btn btn-success" id="boton-registrar">Registrar PAX</button>
+        <button class="btn btn-danger" id="boton-eliminar">Eliminar PAX</button>
+    </div>
+    <div class="container mt-5">
+        <h2></h2>
+        <input type="text" id="formulario" class="form-control my-2">
+        <button class="btn btn-primary mb-2" id="boton-buscar">Buscar</button>
+        <ul id="resultado">
+            
+        </ul>
+    </div> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://hosteria-america.com/images/logo.png" alt="Logo Hosteria America" width="250"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active" style="text-align: center"> 
+                        <a class="nav-link" href="/dashboard"><i class="fa fa-tachometer"></i><br>Panel</a>
+                    </li>
+                    <li class="nav-item active" style="text-align: center"> 
+                        <a class="nav-link" href="/creaPax"><i class="fa fa-user-plus"></i><br>Ingresar PAX</a>
+                    </li>
+                    <li class="nav-item active" style="text-align: center">
+                        <a class="nav-link" href="/creaReserva"><i class="fa fa-calendar-o"></i><br>Generar Reserva</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/pasajeros"><i class="fa fa-users"></i><br>Pasajeros</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/reservas"><i class="fa fa-folder-open-o"></i><br>Reservas</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/buscar"><i class="fa fa-search"></i><br> Buscador</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/tarifas"><i class="fa fa-usd"></i><br> Tarifas</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <% if(usuario) { %>
+            <a class="btn btn-danger btn-sm" style="margin-right: 25px;" href="/logout"><%= usuario %> <br> Cerrar sesión</a>
+            <% } %>
+    </nav>
+
+
+    <!--     <div class="container p-4">
+        <div class="row">
+            <h3>Tarifas</h3>
+            <div class="alert alert-primary" role="alert">
+                <i>*Temporada Verano: NOVIEMBRE - DICIEMBRE - ENERO - FEBRERO - MARZO</i><br>
+                <i>*Temporada Invierno: JULIO - AGOSTO - SEPTIEMBRE</i><br>
+                <i>*Temporada Baja: ABRIL - MAYO - JUNIO</i><br>
+                <i>El mes de Octubre puede variar dependiendo la ocupación.</i>
+              </div> -->
+
+
+    <p><br></p>
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-group">
+                <div class="card">
+                  <div class="card-body mx-auto">
+                    <h5 class="card-title">Convertir a pesos</h5>
+                    <p>Ingrese la cotización para convertir las tarifas en pesos.</p>
+                    $<input type="number" id="cotizacion" maxlength="2" size="5" style="width:50px;height:30px"
+                        placeholder="118">
+                    <button onclick="convertir(document.getElementById('cotizacion').value)" type="button" class="btn btn-primary">Convertir</button>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Descuento de tarifas</h5>
+                    <p>Ingrese el descuento que desea realizar en las tarifas.</p>
+                    %<input type="number" id="descuento" maxlength="2" size="5" style="width:50px;height:30px"
+                        placeholder="25">
+                    <button onclick="calcula(document.getElementById('descuento').value)" type="button" class="btn btn-primary">Descontar</button>
+    
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <br>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="table-dark align-middle">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">x1</th>
+                    <th scope="col">x2</th>
+                    <th scope="col">x3</th>
+                    <th scope="col">x4</th>
+                    <th scope="col">x5</th>
+                    <th scope="col">x6</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="std">
+                    <th scope="row">Estándar</th>
+                    <td>160</td>
+                    <td>180</td>
+                    <td>200</td>
+                    <td>220</td>
+                    <td>XXX</td>
+                    <td>XXX</td>
+                </tr>
+                <tr id="stdcv">
+                    <th scope="row">Estándar con vista</th>
+                    <td>180</td>
+                    <td>200</td>
+                    <td>220</td>
+                    <td>XXX</td>
+                    <td>XXX</td>
+                    <td>XXX</td>
+                </tr>
+                <tr id="suite">
+                    <th scope="row">Suite Moderna</th>
+                    <td>210</td>
+                    <td>230</td>
+                    <td>250</td>
+                    <td>270</td>
+                    <td>XXX</td>
+                    <td>XXX</td>
+                </tr>
+                <tr id="msdepto">
+                    <th scope="row">Depto/Master Suite</th>
+                    <td>230</td>
+                    <td>250</td>
+                    <td>270</td>
+                    <td>290</td>
+                    <td>310</td>
+                    <td>330</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        //ESTANDAR
+        const stdx1 = parseInt(document.getElementById('std').cells[1].innerText)
+        const stdx2 = parseInt(document.getElementById('std').cells[2].innerText)
+        const stdx3 = parseInt(document.getElementById('std').cells[3].innerText)
+        const stdx4 = parseInt(document.getElementById('std').cells[4].innerText)
+        //ESTANDAR CON VISTA
+        const stdcvx1 = parseInt(document.getElementById('stdcv').cells[1].innerText)
+        const stdcvx2 = parseInt(document.getElementById('stdcv').cells[2].innerText)
+        const stdcvx3 = parseInt(document.getElementById('stdcv').cells[3].innerText)
+        //SUITE
+        const suitex1 = parseInt(document.getElementById('suite').cells[1].innerText)
+        const suitex2 = parseInt(document.getElementById('suite').cells[2].innerText)
+        const suitex3 = parseInt(document.getElementById('suite').cells[3].innerText)
+        const suitex4 = parseInt(document.getElementById('suite').cells[4].innerText)
+        //DEPTO MASTERSUITE
+        const msdeptox1 = parseInt(document.getElementById('msdepto').cells[1].innerText)
+        const msdeptox2 = parseInt(document.getElementById('msdepto').cells[2].innerText)
+        const msdeptox3 = parseInt(document.getElementById('msdepto').cells[3].innerText)
+        const msdeptox4 = parseInt(document.getElementById('msdepto').cells[4].innerText)
+        const msdeptox5 = parseInt(document.getElementById('msdepto').cells[5].innerText)
+        const msdeptox6 = parseInt(document.getElementById('msdepto').cells[6].innerText)
+        //DESCUENTO EN INPUT
+
+        /*         function calcular(descuento) {
+                    const resultado = Math.floor(stdx1*descuento)/100;
+                    document.getElementById('stdx1').cells[1].innerHTML = resultado
+                    alert(resultado)
+                
+                } */
+
+
+        // funciona pero falta la formula para el descuento
+        function calcula(descuento) {
+            //STANDARD
+            let dsc1 = Math.floor(stdx1 * descuento) / 100
+            let total1 = Math.floor(stdx1 - dsc1);
+            document.getElementById("std").cells[1].innerHTML = `<p style="color:green"><strong>${total1}</strong></p>`;
+            let desc2 = Math.floor(stdx2 * descuento) / 100
+            let total2 = Math.floor(stdx2 - desc2);
+            document.getElementById("std").cells[2].innerHTML = `<p style="color:green"><strong>${total2}</strong></p>`;
+            let desc3 = Math.floor(stdx3 * descuento) / 100
+            let total3 = Math.floor(stdx3 - desc3);
+            document.getElementById("std").cells[3].innerHTML = `<p style="color:green"><strong>${total3}</strong></p>`;
+            let desc4 = Math.floor(stdx4 * descuento) / 100
+            let total4 = Math.floor(stdx4 - desc4);
+            document.getElementById("std").cells[4].innerHTML = `<p style="color:green"><strong>${total4}</strong></p>`;
+            //STANDARD CON VISTA
+            let desc5 = Math.floor(stdcvx1 * descuento) / 100
+            let total5 = Math.floor(stdcvx1 - desc5);
+            document.getElementById("stdcv").cells[1].innerHTML = `<p style="color:green"><strong>${total5}</strong></p>`;
+            let desc6 = Math.floor(stdcvx2 * descuento) / 100
+            let total6 = Math.floor(stdcvx2 - desc6);
+            document.getElementById("stdcv").cells[2].innerHTML = `<p style="color:green"><strong>${total6}</strong></p>`;
+            let desc7 = Math.floor(stdcvx3 * descuento) / 100
+            let total7 = Math.floor(stdcvx3 - desc7);
+            document.getElementById("stdcv").cells[3].innerHTML = `<p style="color:green"><strong>${total7}</strong></p>`;
+            //SUITE
+            let desc8 = Math.floor(suitex1 * descuento) / 100
+            let total8 = Math.floor(suitex1 - desc8);
+            document.getElementById("suite").cells[1].innerHTML = `<p style="color:green"><strong>${total8}</strong></p>`;
+            let desc9 = Math.floor(suitex2 * descuento) / 100
+            let total9 = Math.floor(suitex2 - desc9);
+            document.getElementById("suite").cells[2].innerHTML = `<p style="color:green"><strong>${total9}</strong></p>`;
+            let desc10 = Math.floor(suitex3 * descuento) / 100
+            let totall0 = Math.floor(suitex3 - desc10);
+            document.getElementById("suite").cells[3].innerHTML = `<p style="color:green"><strong>${totall0}</strong></p>`;
+            let desc11 = Math.floor(suitex4 * descuento) / 100
+            let total11 = Math.floor(suitex4 - desc11);
+            document.getElementById("suite").cells[4].innerHTML = `<p style="color:green"><strong>${total11}</strong></p>`;
+            //DEPTO Y MASTERSUITE
+            let desc12 = Math.floor(msdeptox1 * descuento) / 100
+            let total12 = Math.floor(msdeptox1 - desc12);
+            document.getElementById("msdepto").cells[1].innerHTML = `<p style="color:green"><strong>${total12}</strong></p>`;
+            let desc13 = Math.floor(msdeptox2 * descuento) / 100
+            let total13 = Math.floor(msdeptox2 - desc13);
+            document.getElementById("msdepto").cells[2].innerHTML = `<p style="color:green"><strong>${total13}</strong>`;
+            let desc14 = Math.floor(msdeptox3 * descuento) / 100
+            let total14 = Math.floor(msdeptox3 - desc14);
+            document.getElementById("msdepto").cells[3].innerHTML = `<p style="color:green"><strong>${total14}</strong></p>`;
+            let desc15 = Math.floor(msdeptox4 * descuento) / 100
+            let total15 = Math.floor(msdeptox4 - desc15);
+            document.getElementById("msdepto").cells[4].innerHTML = `<p style="color:green"><strong>${total15}</strong></p>`;
+            let desc16 = Math.floor(msdeptox5 * descuento) / 100
+            let total16 = Math.floor(msdeptox5 - desc16);
+            document.getElementById("msdepto").cells[5].innerHTML = `<p style="color:green"><strong>${total16}</strong></p>`;
+            let desc17 = Math.floor(msdeptox6 * descuento) / 100
+            let total17 = Math.floor(msdeptox6 - desc17);
+            document.getElementById("msdepto").cells[6].innerHTML = `<p style="color:green"><strong>${total17}</strong></p>`;
+        
+        }   
+
+            // CONVERSOR A PESOS
+        function convertir(cotizacion) {
+            //STANDARD
+            let dsc1 = Math.round(stdx1 * cotizacion)
+            document.getElementById("std").cells[1].innerHTML = `<p style="color:green"><strong>ARS ${dsc1}</strong></p>`;
+            let desc2 = Math.floor(stdx2 * descuento) / 100
+            let total2 = Math.floor(stdx2 - desc2);
+            document.getElementById("std").cells[2].innerHTML = `<p style="color:green"><strong>${total2}</strong></p>`;
+            let desc3 = Math.floor(stdx3 * descuento) / 100
+            let total3 = Math.floor(stdx3 - desc3);
+            document.getElementById("std").cells[3].innerHTML = `<p style="color:green"><strong>${total3}</strong></p>`;
+            let desc4 = Math.floor(stdx4 * descuento) / 100
+            let total4 = Math.floor(stdx4 - desc4);
+            document.getElementById("std").cells[4].innerHTML = `<p style="color:green"><strong>${total4}</strong></p>`;
+            //STANDARD CON VISTA
+            let desc5 = Math.floor(stdcvx1 * descuento) / 100
+            let total5 = Math.floor(stdcvx1 - desc5);
+            document.getElementById("stdcv").cells[1].innerHTML = `<p style="color:green"><strong>${total5}</strong></p>`;
+            let desc6 = Math.floor(stdcvx2 * descuento) / 100
+            let total6 = Math.floor(stdcvx2 - desc6);
+            document.getElementById("stdcv").cells[2].innerHTML = `<p style="color:green"><strong>${total6}</strong></p>`;
+            let desc7 = Math.floor(stdcvx3 * descuento) / 100
+            let total7 = Math.floor(stdcvx3 - desc7);
+            document.getElementById("stdcv").cells[3].innerHTML = `<p style="color:green"><strong>${total7}</strong></p>`;
+            //SUITE
+            let desc8 = Math.floor(suitex1 * descuento) / 100
+            let total8 = Math.floor(suitex1 - desc8);
+            document.getElementById("suite").cells[1].innerHTML = `<p style="color:green"><strong>${total8}</strong></p>`;
+            let desc9 = Math.floor(suitex2 * descuento) / 100
+            let total9 = Math.floor(suitex2 - desc9);
+            document.getElementById("suite").cells[2].innerHTML = `<p style="color:green"><strong>${total9}</strong></p>`;
+            let desc10 = Math.floor(suitex3 * descuento) / 100
+            let totall0 = Math.floor(suitex3 - desc10);
+            document.getElementById("suite").cells[3].innerHTML = `<p style="color:green"><strong>${totall0}</strong></p>`;
+            let desc11 = Math.floor(suitex4 * descuento) / 100
+            let total11 = Math.floor(suitex4 - desc11);
+            document.getElementById("suite").cells[4].innerHTML = `<p style="color:green"><strong>${total11}</strong></p>`;
+            //DEPTO Y MASTERSUITE
+            let desc12 = Math.floor(msdeptox1 * descuento) / 100
+            let total12 = Math.floor(msdeptox1 - desc12);
+            document.getElementById("msdepto").cells[1].innerHTML = `<p style="color:green"><strong>${total12}</strong></p>`;
+            let desc13 = Math.floor(msdeptox2 * descuento) / 100
+            let total13 = Math.floor(msdeptox2 - desc13);
+            document.getElementById("msdepto").cells[2].innerHTML = `<p style="color:green"><strong>${total13}</strong>`;
+            let desc14 = Math.floor(msdeptox3 * descuento) / 100
+            let total14 = Math.floor(msdeptox3 - desc14);
+            document.getElementById("msdepto").cells[3].innerHTML = `<p style="color:green"><strong>${total14}</strong></p>`;
+            let desc15 = Math.floor(msdeptox4 * descuento) / 100
+            let total15 = Math.floor(msdeptox4 - desc15);
+            document.getElementById("msdepto").cells[4].innerHTML = `<p style="color:green"><strong>${total15}</strong></p>`;
+            let desc16 = Math.floor(msdeptox5 * descuento) / 100
+            let total16 = Math.floor(msdeptox5 - desc16);
+            document.getElementById("msdepto").cells[5].innerHTML = `<p style="color:green"><strong>${total16}</strong></p>`;
+            let desc17 = Math.floor(msdeptox6 * descuento) / 100
+            let total17 = Math.floor(msdeptox6 - desc17);
+            document.getElementById("msdepto").cells[6].innerHTML = `<p style="color:green"><strong>${total17}</strong></p>`;
+        
+        }   
+
+
+    </script>
+
+</body>
+
+</html>

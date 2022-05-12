@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/725f6cf11b.js" crossorigin="anonymous"></script>
+
+    <title>Realizar web check in</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://hosteria-america.com/images/logo.png" alt="Logo Hosteria America" width="250"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+<div class="container">
+     <span><p style="text-align: center; color: rgb(119, 119, 119)">¿Necesitás ayuda?</p></span>
+    <a class="btn btn-outline-secondary btn-sm" title="WhatsApp"
+      href="#>"><i class="fa-brands fa-whatsapp"></i><br><small>WhatsApp</small></a>
+    <a class="btn btn-outline-secondary btn-sm" title="Llamar"
+      href="#>"><i class="fa-solid fa-phone-flip"></i><br><small>&nbsp;Teléfono&nbsp;</small></a>
+    <a class="btn btn-outline-secondary btn-sm" title="Email"
+      href="#>"><i class="fa-solid fa-envelope"></i><br><small>&nbsp;&nbsp;&nbsp;Correo&nbsp;&nbsp;&nbsp;</small></a>
+  </div>
+                </ul>
+            </div>
+            
+        </div>
+        </nav>
+
+
+
+
+    <div class="container">
+    <div class="col-md-12 p-md-5 mx-auto">
+        <h3>Web Check IN</h3>
+        <div class="alert alert-primary" role="alert">
+            <i>Todos los campos son obligatorios.</i>
+            </div>
+        <form method="POST" action="/checkincompleto">
+            <div class="row mt-5">
+                <% if (reserva) { %>
+                    <% for (var i=0; i < reserva.length; i++) { %>
+                        <div class="input-group mb-3">
+                            <div class="w-100"></div>
+                            <span class="input-group-text" id="titular">Titular</span>
+                            <input type="text" class="form-control" placeholder="<%= reserva[i].titular%>" disabled>
+                            <div class="w-100"></div>
+                            <span class="input-group-text" id="habitacion">Habitación</span>
+                            <input type="text" class="form-control" placeholder="<%= reserva[i].cathabitacion%>"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2" disabled>
+                                <div class="w-100"></div>
+                            <span class="input-group-text" id="fechain">Ingreso</span>
+                            <input type="text" class="form-control" placeholder="<%= reserva[i].checkin%>"
+                                 disabled>
+                            <span class="input-group-text" id="fechaout">Salida</span>
+                            <input type="text" class="form-control" placeholder="<%= reserva[i].checkout%>"
+                                 disabled>
+                                 <div class="w-100"></div>
+                            <span class="input-group-text" id="cantidadpaxs">Huéspedes</span>
+                            <input type="text" class="form-control" placeholder="<%= reserva[i].cantidadpax%>"
+                                 disabled>
+                        </div>
+                        <strong>
+                            Información personal del titular
+                        </strong>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">E-mail</span>
+                            <input name="email" type="text" class="form-control" placeholder="mi@email.com" required>
+                            <span class="input-group-text">Celular</span>
+                            <input name="celu" type="number" class="form-control" placeholder="549115225467" required>
+                            <div class="w-100"></div>
+                            <span class="input-group-text">DNI/Pasaporte</span>
+                            <input name="dnipasaporte" type="text" class="form-control" placeholder="12.345.678" required>
+                            <span class="input-group-text">Edad</span>
+                            <input name="edadtitular" type="number" class="form-control" placeholder="25" maxlength="2" required>
+                            <div class="w-100"></div>
+                            <span class="input-group-text">Nacionalidad</span>
+                            <input name="nacionalidad" type="text" class="form-control" placeholder="Argentina" maxlength="25" required>
+                            <div class="w-100"></div>
+
+                    </div>
+                        <div class="container text-center">
+                        <button type="button" class="btn mx-auto btn-success mt-3" onclick="addFields()">Cargar datos de acompañantes</button></div> 
+                        <div id="container" class="input-group mb-3">
+                        </div>
+
+                        <!-- <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                    </div> -->
+                        <hr>
+                        <div class="input-group">
+                            <span class="input-group-text">Observaciones</span>
+                            <textarea name="observaciones" class="form-control"
+                                placeholder="Camas individuales? Cuna extra? haz tus pedidos aquí."></textarea>
+                        </div>
+                        <i class="text-center">Todos los pedidos están sujetos a confirmación por parte del hotel.</i>
+
+                        <!--                    <div class="card mt-1">
+                        <div class="card-body mx-auto">
+                            <p class="card-text">Titular:
+                            <input type="text" name="titular" value="<%= reserva[i].titular%>" disabled>
+                            Habitación
+                            <input type="text" name="cathabitacion" value="<%= reserva[i].cathabitacion%>" disabled></p>
+                            <p class="card-text">Ingreso:
+                            <input type="text" name="titular" value="<%= reserva[i].checkin%>" disabled>
+                           Salida:
+                            <input type="text" name="cathabitacion" value="<%= reserva[i].checkout%>" disabled>
+                            </p>
+                             <p class="card-text"><strong>IN:</strong>
+                                <%= reserva[i].checkin%><strong> OUT:</strong>
+                                    <%= reserva[i].checkout%>
+                            </p>
+                            <p class="card-text"><strong>PAXs:</strong>
+                                <%= reserva[i].cantidadpax%>
+                            </p> -->
+                        <hr>
+                        <div class="container mx-auto text-center">
+                          <!--  <a class="text-center" href="#" id="filldetails" onclick="addFields()">Cargar acompañante</a> -->  
+                            <button type="submit" class="btn w-25 btn-primary mt-3">Finalizar check in</button>
+
+            </div>
+    </div>
+    </form>
+</div>
+
+
+    <% } %>
+        <% } %>
+
+            <% if (reserva) { %>
+                <% for (let i=0; i < reserva.length; i++) { %>
+                    <script type='text/javascript'>
+
+                        function addFields() {
+                            // Generate a dynamic number of inputs
+                            let number = <%= reserva[i].cantidadpax %> - 1;
+                            // Get the element where the inputs will be added to
+                            let container = document.getElementById("container");
+                            // Remove every children it had before
+                            while (container.hasChildNodes()) {
+                                container.removeChild(container.lastChild);
+                            }
+                            for (i = 0; i < number; i++) {
+                                // Append a node with a random text
+                                /*                                 container.appendChild(document.createTextNode("Member " + (i + 1))); */
+                                // Create an <input> element, set its type and name attributes
+
+
+                                //TODO ESTO SI FUNCIONA 
+
+                                let div = document.createElement("div");
+                                div.className = "input-group mb-3"
+                                div.innerHTML = "<strong>Acompañante " + (i + 1) + "</strong>";
+                                let span = document.createElement("span");
+                                span.className = "input-group-text"
+                                span.textContent = "Nombre"  // + (i + 1);
+                                let input = document.createElement("input");
+                                input.type = "text";
+                                input.name = "nombrepax" + i;
+                                input.className = "form-control"
+                                span.appendChild(input)
+                                let span2 = document.createElement("span");
+                                span2.className = "input-group-text"
+                                span2.textContent = "Apellido " // + (i + 1);
+                                let input2 = document.createElement("input");
+                                input2.type = "text";
+                                input2.name = "apellidopax" + i;
+                                input2.className = "form-control"
+                                span2.appendChild(input2)
+                                let span3 = document.createElement("span");
+                                span3.className = "input-group-text"
+                                span3.textContent = "DNI/Pasaporte" // + (i + 1);
+                                let input3 = document.createElement("input");
+                                input3.type = "text";
+                                input3.name = "dnipasaportepax" + i;
+                                input3.className = "form-control"
+                                input3.placeholder = "12.345.678"
+                                span3.appendChild(input3)
+                                let span4 = document.createElement("span");
+                                span4.className = "input-group-text"
+                                span4.textContent = "Edad" // + (i + 1);
+                                let input4 = document.createElement("input");
+                                input4.type = "number";
+                                input4.name = "edadpax" + i;
+                                input4.className = "form-control"
+                                span4.appendChild(input4)
+                                container.append(div,span,span2,span3,span4); 
+                                //container.appendChild(document.createElement("br"));
+
+
+                            }
+                        }
+                    </script>
+                    <% } %>
+                        <% } %>
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                                crossorigin="anonymous"></script>
+                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                            <% if(typeof alert !="undefined" ) { %>
+                                <script>
+                                    Swal.fire({
+                                        title: '<%= alertTitle %>',
+                                        text: '<%= alertMessage %>',
+                                        icon: '<%= alertIcon %>',
+                                        showConfirmButton: '<%= showConfirmButton %>',
+                                        timer: '<%= timer %>',
+                                    })
+                                </script>
+
+                                <% } %>
+
+</body>
+
+</html>

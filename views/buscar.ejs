@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de PAX</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://hosteria-america.com/images/logo.png" alt="Logo Hosteria America" width="250"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active" style="text-align: center"> 
+                        <a class="nav-link" href="/dashboard"><i class="fa fa-tachometer"></i><br>Panel</a>
+                    </li>
+                    <li class="nav-item active" style="text-align: center"> 
+                        <a class="nav-link" href="/creaPax"><i class="fa fa-user-plus"></i><br>Ingresar PAX</a>
+                    </li>
+                    <li class="nav-item active" style="text-align: center">
+                        <a class="nav-link" href="/creaReserva"><i class="fa fa-calendar-o"></i><br>Generar Reserva</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/pasajeros"><i class="fa fa-users"></i><br>Pasajeros</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/reservas"><i class="fa fa-folder-open-o"></i><br>Reservas</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/buscar"><i class="fa fa-search"></i><br> Buscador</a>
+                    </li>
+                    <li class="nav-item" style="text-align: center">
+                        <a class="nav-link" href="/tarifas"><i class="fa fa-usd"></i><br> Tarifas</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <% if(usuario) { %>
+            <a class="btn btn-danger btn-sm" style="margin-right: 25px;" href="/logout"><%= usuario %> <br> Cerrar sesión</a>
+            <% } %>
+    </nav>
+
+
+    
+
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/buscarnombre" method="POST">
+                            <div class="form-group">
+                                <label for="nombre">Buscar por nombre:</label>
+                                <input type="text" class="form-control mt-2" name="nombre" placeholder="Nombre del pasajero..." autofocus>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn w-100 btn-success mt-3">Buscar</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+            <div class="col-md-4 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/buscarapellido" method="POST">
+                            <div class="form-group">
+                                <label for="apellido">Buscar por apellido:</label>
+                                <input type="text" class="form-control mt-2" name="apellido" placeholder="Apellido del pasajero..." autofocus>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn w-100 btn-success mt-3">Buscar</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+            <div class="col-md-4 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/buscarhabitacion" method="POST">
+                            <div class="form-group">
+                                <label for="habitacion">Buscar por habitación:</label>
+                                <input type="text" class="form-control mt-2" name="habitacion" placeholder="Habitación del pasajero..." autofocus>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn w-100 btn-success mt-3">Buscar</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+        
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+</html>
